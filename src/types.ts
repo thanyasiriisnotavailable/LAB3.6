@@ -1,4 +1,4 @@
-interface Airline {
+export interface Airline {
   _id: string
   name: string
   country: string
@@ -7,10 +7,9 @@ interface Airline {
   head_quaters: string
   website: string
   established: string
-  __v: number
 }
 
-interface Passenger {
+export interface Passenger {
   _id: string
   name: string
   trips: number

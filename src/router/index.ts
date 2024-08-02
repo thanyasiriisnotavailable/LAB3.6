@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import PassengerView from '../views/PassengerView.vue'
+import PassengerListView from '../views/PassengerListView.vue'
 import AboutView from '../views/AboutView.vue'
 import PassengerDetailView from '@/views/PassengerDetailView.vue'
 
@@ -8,8 +8,9 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'passenger-view',
-      component: PassengerView
+      name: 'passenger-list-view',
+      component: PassengerListView,
+      props: (route) => ({ page: parseInt(route.query.page?.toString() || '0') })
     },
     {
       path: '/about',

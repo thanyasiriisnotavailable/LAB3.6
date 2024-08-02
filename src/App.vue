@@ -7,8 +7,8 @@ import { RouterLink, RouterView } from 'vue-router'
     <header>
       <div class="wrapper">
         <nav>
-          <RouterLink to="/">Passenger</RouterLink> |
-          <RouterLink to="/about">About</RouterLink>
+          <RouterLink :to="{ name: 'passenger-list-view' }">Passenger</RouterLink> |
+          <RouterLink :to="{ name: 'about-view' }">About</RouterLink>
         </nav>
       </div>
     </header>
@@ -22,7 +22,7 @@ import { RouterLink, RouterView } from 'vue-router'
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #504265;
 }
 
 nav {

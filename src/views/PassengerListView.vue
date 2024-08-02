@@ -1,13 +1,21 @@
 <script setup lang="ts">
 import PassengerCard from '@/components/PassengerCard.vue'
 import type { Passenger } from '@/types'
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import PassengerService from '@/services/PassengerService';
 
 const psgs = ref<Passenger[] | null>(null)
 
+const props = defineProps({
+  page: {
+    type: Number,
+    required: true
+  }
+})
+const page = computed(() => props.page)
+
 onMounted(() => {
-  PassengerService.getPassengers()
+  PassengerService.getPassengers(page.value, 3)
     .then((response) => (
       psgs.value = response.data.data
     ))

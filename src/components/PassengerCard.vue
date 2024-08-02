@@ -6,12 +6,12 @@ defineProps<{
 </script>
 
 <template>
-  <div class="passenger-class">
+  <RouterLink class="psg-link" :to="{ name: 'passenger-detail-view', params: { id: psg._id } }">
     <div class="psg-card">
       <h2>{{ psg.name }}</h2>
       <p>Trips: {{ psg.trips }}</p>
     </div>
-  </div>
+  </RouterLink>
 </template>
 
 <style scoped>

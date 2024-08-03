@@ -7,16 +7,15 @@ import { useRoute } from 'vue-router'
 
 const route = useRoute()
 
-const size = computed(() => parseInt(route.query.perPage as string) || 3)
-const page = computed(() => parseInt(route.query.page as string) || 0)
-
 const psgs = ref<Passenger[] | null>(null)
 
 const totalPassengers = ref(0)
+
+const size = computed(() => parseInt(route.query.size as string) || 4)
+const page = computed(() => parseInt(route.query.page as string) || 0)
+
 const hasNextPage = computed(() => {
   const totalPages = Math.ceil(totalPassengers.value / size.value)
-  console.log('Total Pages:', totalPages)
-  console.log('Current Page:', page.value)
   return page.value < totalPages
 })
 

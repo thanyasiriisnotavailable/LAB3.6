@@ -76,6 +76,9 @@ onMounted(() => {
   text-decoration: none;
   color: #2c3e50;
 }
+.pagination a:hover {
+  color: #6c7bbe;
+}
 #page-prev {
   text-align: left;
 }

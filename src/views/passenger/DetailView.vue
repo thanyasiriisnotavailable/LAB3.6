@@ -1,27 +1,11 @@
 <script setup lang="ts">
-import { ref, onMounted, defineProps } from 'vue'
+import { toRefs, defineProps } from 'vue'
 import type { Passenger } from '@/types'
-import PassengerService from '@/services/PassengerService'
 
-const psg = ref<Passenger | null>(null)
-
-const props = defineProps({
-  id: {
-    type: String,
-    required: true
-  }
-})
-
-onMounted(() => {
-  console.log('Mounted with props:', props)
-  PassengerService.getPassenger(props.id)
-    .then((response) => {
-      psg.value = response.data
-    })
-    .catch((error) => {
-      console.error('There was an error fetching the passenger data!', error)
-    })
-})
+const props = defineProps<{
+  psg: Passenger
+}>()
+const { psg } = toRefs(props)
 </script>
 
 <template>
@@ -34,7 +18,7 @@ onMounted(() => {
         <div class="airline-info" v-for="airline in psg.airline" :key="airline._id">
           <p>
             <b>Airline: </b>
-            <router-link id="airline-link" :to="{ name: 'airline-detail-view', params: { id } }">{{
+            <router-link id="airline-link" :to="{ name: 'airline-view', params: { id: psg._id } }">{{
               airline.name
             }}</router-link>
           </p>
@@ -43,7 +27,7 @@ onMounted(() => {
       <div class="pagination">
         <router-link
           id="airline-page"
-          :to="{ name: 'airline-detail-view', params: { id } }"
+          :to="{ name: 'airline-view', params: { id: psg._id } }"
           rel="airline"
           >See Airline... &#62;</router-link
         >

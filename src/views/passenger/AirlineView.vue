@@ -1,27 +1,11 @@
 <script setup lang="ts">
-import { ref, onMounted, defineProps } from 'vue'
+import { toRefs, defineProps } from 'vue'
 import type { Passenger } from '@/types'
-import PassengerService from '@/services/PassengerService'
 
-const psg = ref<Passenger | null>(null)
-
-const props = defineProps({
-  id: {
-    type: String,
-    required: true
-  }
-})
-
-onMounted(() => {
-  PassengerService.getPassenger(props.id)
-    .then((response) => {
-      psg.value = response.data
-      console.log('API Response:', psg.value)
-    })
-    .catch((error) => {
-      console.error('There was an error fetching the passenger data!', error)
-    })
-})
+const props = defineProps<{
+  psg: Passenger
+}>()
+const { psg } = toRefs(props)
 
 function formatUrl(url: string): string {
   if (!url.startsWith('http://') && !url.startsWith('https://')) {
@@ -43,13 +27,13 @@ function formatUrl(url: string): string {
         <a :href="formatUrl(airline.website)" target="_blank">{{ airline.website }}</a>
       </div>
       <div class="pagination">
-        <router-link
-          id="detail-page"
-          :to="{ name: 'passenger-detail-view', params: { id } }"
-          rel="detail"
-          >&#60; Details</router-link
-        >
-      </div>
+      <router-link
+        id="detail-page"
+        :to="{ name: 'detail-view', params: { id: psg._id } }"
+        rel="detail"
+        >&#60; Details</router-link
+      >
+    </div>
     </div>
   </div>
   <div v-else>
@@ -57,10 +41,10 @@ function formatUrl(url: string): string {
   </div>
 </template>
 
-<style scoped> 
+<style scoped>
 h2 {
   margin-bottom: 0;
-  background-color: #6c7bbe;;
+  background-color: #6c7bbe;
   color: black;
   padding-top: 5px;
   padding-bottom: 5px;
@@ -77,14 +61,14 @@ h2 {
   margin-top: 15px;
 }
 .airline-info {
-    border: solid 2px #6c7bbe;
-    padding-bottom: 30px;
+  border: solid 2px #6c7bbe;
+  padding-bottom: 30px;
 }
 .airline-info a {
   color: #0c38fa;
 }
 .airline-info a:hover {
-    font-weight: bold;
+  font-weight: bold;
 }
 .pagination {
   display: flex;

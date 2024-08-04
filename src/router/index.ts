@@ -1,8 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import PassengerListView from '../views/PassengerListView.vue'
 import AboutView from '../views/AboutView.vue'
-import PassengerDetailView from '@/views/passenger/DetailView.vue'
+import DetailView from '@/views/passenger/DetailView.vue'
 import AirlineView from '@/views/passenger/AirlineView.vue'
+import LayoutView from '@/views/passenger/LayoutView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,15 +21,23 @@ const router = createRouter({
     },
     {
       path: '/passenger/:id',
-      name: 'passenger-detail-view',
-      component: PassengerDetailView,
-      props: true
-    },
-    {
-      path: '/passenger/:id/airline',
-      name: 'airline-detail-view',
-      component: AirlineView,
-      props: true
+      name: 'layout-view',
+      component: LayoutView,
+      props: true,
+      children: [
+        {
+          path: '',
+          name: 'detail-view',
+          component: DetailView,
+          props: true
+        },
+        {
+          path: 'airline',
+          name: 'airline-view',
+          component: AirlineView,
+          props: true
+        }
+      ]
     }
   ]
 })

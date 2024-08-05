@@ -2,6 +2,7 @@
 import { ref, onMounted, defineProps } from 'vue'
 import type { Passenger } from '@/types'
 import PassengerService from '@/services/PassengerService'
+import { useRouter } from 'vue-router';
 
 const psg = ref<Passenger | null>(null)
 
@@ -12,14 +13,19 @@ const props = defineProps({
   }
 })
 
+const router = useRouter()
+
 onMounted(() => {
   console.log('Mounted with props:', props)
   PassengerService.getPassenger(props.id)
     .then((response) => {
       psg.value = response.data
     })
-    .catch((error) => {
-      console.error('There was an error fetching the passenger data!', error)
+    .catch(() => {
+        router.push({
+            name: '404-resource-view',
+            params: { resource: 'event'}
+        })
     })
 })
 </script>

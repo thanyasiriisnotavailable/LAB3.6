@@ -9,8 +9,11 @@ const { psg } = toRefs(props)
 </script>
 
 <template>
-  <div class="airline" v-if="psg">
+  <div class="passenger" v-if="psg">
     <div>
+      <div class="edit-link">
+        <router-link :to="{ name: 'edit-view', params: { id: psg._id } }">Edit</router-link>
+      </div>
       <div class="passenger-info">
         <h2>{{ psg.name }}</h2>
         <p><b>Id:</b> {{ psg._id }}</p>
@@ -18,9 +21,11 @@ const { psg } = toRefs(props)
         <div class="airline-info" v-for="airline in psg.airline" :key="airline._id">
           <p>
             <b>Airline: </b>
-            <router-link id="airline-link" :to="{ name: 'airline-view', params: { id: psg._id } }">{{
-              airline.name
-            }}</router-link>
+            <router-link
+              id="airline-link"
+              :to="{ name: 'airline-view', params: { id: psg._id } }"
+              >{{ airline.name }}</router-link
+            >
           </p>
         </div>
       </div>
@@ -49,10 +54,6 @@ h2 {
 p:nth-child(2) {
   margin-top: 30px;
 }
-.airline-logo {
-  max-width: 100px;
-  height: auto;
-}
 #airline-link {
   text-decoration: none;
   color: #0c38fa;
@@ -60,15 +61,15 @@ p:nth-child(2) {
 #airline-link:hover {
   text-decoration: underline;
 }
-.airline {
+.passenger {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 15px;
 }
 .passenger-info {
-    border: solid 2px;
-    padding-bottom: 14px;
+  border: solid 2px;
+  padding: 14px 0 14;
 }
 .pagination {
   display: flex;
@@ -85,5 +86,17 @@ p:nth-child(2) {
 }
 #airline-page {
   text-align: right;
+}
+.edit-link {
+  text-align: left;
+  margin-bottom: 10px;
+  color: blue;
+  text-decoration: none;
+}
+
+/* router-link(edit)  */
+a {
+  font-weight: bold;
+  color: #6c7bbe;
 }
 </style>

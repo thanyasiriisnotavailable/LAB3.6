@@ -6,6 +6,7 @@ import AirlineView from '@/views/passenger/AirlineView.vue'
 import LayoutView from '@/views/passenger/LayoutView.vue'
 import NotFoundPageView from '@/views/NotFoundPageView.vue'
 import NotFoundResourceView from '@/views/NotFoundResourceView.vue'
+import EditView from '@/views/passenger/EditView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +33,12 @@ const router = createRouter({
           path: 'airline',
           name: 'airline-view',
           component: AirlineView,
+          props: true
+        },
+        {
+          path: 'edit',
+          name: 'edit-view',
+          component: EditView,
           props: true
         }
       ]

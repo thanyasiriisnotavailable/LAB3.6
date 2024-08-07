@@ -16,3 +16,7 @@ export interface Passenger {
   airline: Airline[]
   __v: number
 }
+
+export interface MessageState {
+  message: string
+}

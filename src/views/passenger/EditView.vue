@@ -4,6 +4,7 @@ import type { Passenger } from '@/types'
 import { useRouter } from 'vue-router'
 import { useMessageStore } from '@/stores/message'
 import { storeToRefs } from 'pinia'
+import nProgress from 'nprogress'
 const store = useMessageStore()
 const { message } = storeToRefs(store)
 
@@ -15,10 +16,12 @@ const props = defineProps<{
 const { psg } = toRefs(props)
 const router = useRouter()
 const edit = () => {
+  nProgress.start()
   store.updateMessage('Please wait... the details of ' + props.psg.name + ' is in progress!')
   setTimeout(() => {
     store.resetMessage()
     router.push({ name: 'passenger-list-view', params: { id: props.psg._id } })
+    nProgress.done()
   }, 5000)
 }
 </script>

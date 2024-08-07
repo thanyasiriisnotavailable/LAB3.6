@@ -7,6 +7,7 @@ import LayoutView from '@/views/passenger/LayoutView.vue'
 import NotFoundPageView from '@/views/NotFoundPageView.vue'
 import NotFoundResourceView from '@/views/NotFoundResourceView.vue'
 import EditView from '@/views/passenger/EditView.vue'
+import nProgress from 'nprogress'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -65,6 +66,12 @@ const router = createRouter({
       component: NotFoundPageView
     }
   ]
+})
+router.beforeEach(() => {
+  nProgress.start()
+})
+router.afterEach(() => {
+  nProgress.done()
 })
 
 export default router
